@@ -9,7 +9,7 @@ export default class Login extends Component {
     this.state = {
         userName: '',
         password: '',
-        success: '',
+        responseText: '',
         accessToken: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -57,12 +57,14 @@ export default class Login extends Component {
     .then(result => {
       this.props.setAccessToken(result.idToken.jwtToken);
       this.setState({
-        'success': 'user logged in!',
+        'responseText': 'user logged in!',
       });
     })
     .catch(e => {
       let msg = e.message || 'An error occurred.';
-      alert(msg);
+      this.setState({
+        'responseText': msg,
+      });
     })
 
     
@@ -80,17 +82,19 @@ export default class Login extends Component {
               value={this.state.userName}
               onChange={this.handleChange} />
           </label>
+          <br />
           <label>
             Password:
             <input
               name="password"
-              type="string"
+              type="password"
               value={this.state.password}
               onChange={this.handleChange} />
           </label>
+          <br />
           <input type="submit" value="Submit" />
         </form>
-        <p>{this.state.success}</p>
+        <p>{this.state.responseText}</p>
       </div>
     );
   }

@@ -83,6 +83,7 @@ export default class Register extends Component {
               value={this.state.firstName}
               onChange={this.handleChange} />
           </label>
+          <br />
           <label>
             Last Name:
             <input
@@ -91,6 +92,7 @@ export default class Register extends Component {
               value={this.state.lastName}
               onChange={this.handleChange} />
           </label>
+          <br />
           <label>
             Username:
             <input
@@ -99,14 +101,16 @@ export default class Register extends Component {
               value={this.state.userName}
               onChange={this.handleChange} />
           </label>
+          <br />
           <label>
             Password:
             <input
               name="password"
-              type="string"
+              type="password"
               value={this.state.password}
               onChange={this.handleChange} />
           </label>
+          <br />
           <input type="submit" value="Submit" />
         </form>
         <p>{this.state.validationError}</p>

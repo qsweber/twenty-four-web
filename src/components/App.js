@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PinInput from 'react-pin-input';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 import Login from './Login';
 import Register from './Register';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {input: '', output: '', accessToken: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {output: '', accessToken: ''};
     this.setAccessToken = this.setAccessToken.bind(this);
     this.handleChangeValue = this.handleChangeValue.bind(this);
     this.handleFinished = this.handleFinished.bind(this);
@@ -19,22 +19,14 @@ class App extends Component {
     this.setState({accessToken: accessToken});
   }
 
-  handleChange(event) {
-    this.setState({input: event.target.value});
-  }
-
   handleChangeValue(value, index) {
-    console.log(value);
-    if (index === 0) {
-      this.setState({input: value});
-    }
-
-    this.setState({input: this.state.input + `,${value}`});
+    return;
   }
 
   handleFinished(value, index) {
-    this.setState({input: this.state.input + `,${value}`});
-    var myInit = {
+    const input = value.split('').join(',');
+    const url = 'https://eu9kn1e2gb.execute-api.us-west-2.amazonaws.com/production/api/v0/solutions?values=' + input;
+    const fetchInit = {
       method: 'GET',
       headers: {
         "Authorization": this.state.accessToken,
@@ -42,29 +34,8 @@ class App extends Component {
       },
       cache: 'default',
     }
-    fetch('https://eu9kn1e2gb.execute-api.us-west-2.amazonaws.com/production/api/v0/solutions?values=' + this.state.input, myInit)
-      .then(res => {
-        return res.json();
-      })
-      .then((something) => {
-        this.setState({output: JSON.stringify(something['values'], undefined, 2)});
-      })
-      .catch(e => {
-        alert(e);
-      });    
-  }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    var myInit = {
-      method: 'GET',
-      headers: {
-        "Authorization": this.state.accessToken,
-        "Content-Type": "application/json",
-      },
-      cache: 'default',
-    }
-    fetch('https://eu9kn1e2gb.execute-api.us-west-2.amazonaws.com/production/api/v0/solutions?values=' + this.state.input, myInit)
+    fetch(url, fetchInit)
       .then(res => {
         return res.json();
       })
@@ -72,27 +43,34 @@ class App extends Component {
         this.setState({output: JSON.stringify(something['values'], undefined, 2)});
       })
       .catch(e => {
-        alert(e);
-      });
+        alert(e.message);
+      });    
   }
 
   render() {
     return (
-      <div>
-        <Register />
-        <Login
-          setAccessToken={this.setAccessToken}
-        />
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" value={this.state.input} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-          <PinInput length={4} onChange={this.handleChangeValue} onComplete={this.handleFinished} />
-        </form>
-        <pre>{this.state.output}</pre>
-      </div>
+      <Grid fluid>
+        <Row end="xs">
+          <Col xs={3} >
+            <Register />
+          </Col>
+          <Col xs={3} >
+            <Login
+              setAccessToken={this.setAccessToken}
+            />
+          </Col>
+        </Row>
+        <Row center="xs">
+          <Col xs={6}>
+            <PinInput id="input" length={4} onChange={this.handleChangeValue} onComplete={this.handleFinished} />
+          </Col>
+        </Row>
+        <Row center="xs">
+          <Col xs={6}>
+            <pre>{this.state.output}</pre>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
