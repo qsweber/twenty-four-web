@@ -25,7 +25,7 @@ class App extends Component {
 
   handleChangeValue(value, index) {
     console.log(value);
-    if (index == 0) {
+    if (index === 0) {
       this.setState({input: value});
     }
 
