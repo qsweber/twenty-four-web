@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { AuthenticationDetails, CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js';
 
 export default class Login extends Component {
 
@@ -9,14 +8,10 @@ export default class Login extends Component {
     this.state = {
         userName: '',
         password: '',
-        responseText: '',
-        accessToken: '',
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -26,48 +21,13 @@ export default class Login extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-    new Promise((resolve, reject) => {
-      var authenticationData = {
-        Username : this.state.userName,
-        Password : this.state.password,
-      };
-      var authenticationDetails = new AuthenticationDetails(authenticationData);
-      var poolData = {
-        UserPoolId : 'us-west-2_pmyAi9eZM',
-        ClientId : 'ka1b6828t956d9t843v6curst',
-      };
-      var userPool = new CognitoUserPool(poolData);
-      var userData = {
-        Username : this.state.userName,
-        Pool: userPool
-      };
-      var cognitoUser = new CognitoUser(userData);
-      cognitoUser.authenticateUser(authenticationDetails, {
-          onSuccess: function (result) {
-              console.log('access token + ' + result.idToken.jwtToken);
 
-              resolve(result);
-          },
-
-          onFailure: reject,
-      });
-    })
-    .then(result => {
-      this.props.setAccessToken(result.idToken.jwtToken);
-      this.setState({
-        'responseText': 'user logged in!',
-      });
-    })
-    .catch(e => {
-      let msg = e.message || 'An error occurred.';
-      this.setState({
-        'responseText': msg,
-      });
-    })
-
-    
+    this.props.onSubmit({
+      userName: this.state.userName,
+      password: this.state.password,
+    });
   }
 
   render() {
@@ -99,9 +59,3 @@ export default class Login extends Component {
     );
   }
 }
-
-Login.propTypes = {
-  setAccessToken: PropTypes.func
-};
-
-Login.route = { component: Login }

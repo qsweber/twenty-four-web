@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,11 +12,9 @@ export default class Register extends Component {
         success: '',
         cognitoUser: '',
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -27,48 +24,15 @@ export default class Register extends Component {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
-
-    var poolData = {
-      UserPoolId : 'us-west-2_pmyAi9eZM',
-      ClientId : 'ka1b6828t956d9t843v6curst',
-    };
-    var userPool = new CognitoUserPool(poolData);
-
-    var attributeList = [];
-    var dataFirstName = {
-      Name : 'given_name',
-      Value : this.state.firstName,
-    };
-    var dataLastName = {
-      Name : 'family_name',
-      Value : this.state.lastName,
-    };
-    var attributeFirstName = new CognitoUserAttribute(dataFirstName);
-    var attributeLastName = new CognitoUserAttribute(dataLastName);
-
-    attributeList.push(attributeFirstName);
-    attributeList.push(attributeLastName);
-
-    new Promise((resolve, reject) => {
-      userPool.signUp(this.state.userName, this.state.password, attributeList, null, (err, result) => {
-        if (err) return reject(err);
-        resolve(result.user);
-      });
-    })
-    .then(u => {
-      this.setState({
-        'success': 'user registered!',
-        'cognitoUser': u,
-      });
-    })
-    .catch(e => {
-      let msg = e.message || 'An error occurred.';
-      alert(msg);
-    })
-
-    
+    console.log(this.props);
+    this.props.onSubmit({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      userName: this.state.userName,
+      password: this.state.password,
+    });    
   }
 
   render() {
@@ -120,4 +84,4 @@ export default class Register extends Component {
   }
 }
 
-Register.route = { component: Register }
+export default Register;
