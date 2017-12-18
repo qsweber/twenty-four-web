@@ -5,6 +5,7 @@ import React from 'react';
 import * as Actions from '../actions';
 import Login from '../components/Login';
 import FourNumbers from '../components/FourNumbers';
+import Output from '../components/Output';
 import Register from '../components/Register';
 
 class App extends React.Component {
@@ -21,6 +22,9 @@ class App extends React.Component {
           onTermChange={ this.props.actions.setFourNumbers }
           token={ this.props.token }
         />
+        <Output
+          output={ this.props.output }
+        />
       </div>
     );
   }
@@ -28,12 +32,12 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    token: state.token
+    token: state.twentyfour.token,
+    output: state.twentyfour.output,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  console.log(Actions);
   return {
     actions: bindActionCreators(Actions, dispatch)
   };
