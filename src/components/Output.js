@@ -2,10 +2,12 @@ import React from 'react';
 
 class Output extends React.Component {
   render() {
-    console.log(this.props);
+    const output = this.props.output || [];
     return (
-      <div className="search">
-        <p id="output">{this.props.output}</p>
+      <div>
+        {output.map(item => {
+          return <p id="output">{item}</p>
+        })}
       </div>
     );
   }

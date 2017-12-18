@@ -8,7 +8,7 @@ export default function configureStore(initialState) {
     rootReducer,
     compose(
       applyMiddleware(thunk),
-      window.devToolsExtension ? window.devToolsExtension() : undefined,
+      // window.devToolsExtension ? window.devToolsExtension() : undefined, // TODO why does this fail in incognito mode
     ),
   );
 
