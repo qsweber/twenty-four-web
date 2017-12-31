@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
+import { BACKEND_URL } from '../constants';
 
 export const setFourNumbers = (fourNumbers, token) => {
   return async (dispatch, getState) => {
@@ -8,7 +9,7 @@ export const setFourNumbers = (fourNumbers, token) => {
       return;
     }
     const input = inputNumbers.join(',');
-    const url = 'https://eu9kn1e2gb.execute-api.us-west-2.amazonaws.com/production/api/v0/solutions?values=' + input;  
+    const url = BACKEND_URL + '?values=' + input;  
 
     const fetchInit = {
       method: 'GET',

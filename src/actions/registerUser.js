@@ -1,13 +1,10 @@
 import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
 
+import { POOL_DATA } from '../constants';
+
 export const registerUser = userInfo => {
   return async dispatch => {
-    var poolData = {
-      UserPoolId : 'us-west-2_pmyAi9eZM',
-      ClientId : 'ka1b6828t956d9t843v6curst',
-    };
-  
-    var userPool = new CognitoUserPool(poolData);
+    var userPool = new CognitoUserPool(POOL_DATA);
   
     var attributeList = [];
     var dataFirstName = {

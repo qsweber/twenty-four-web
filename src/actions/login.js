@@ -1,5 +1,7 @@
 import { AuthenticationDetails, CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js';
 
+import { POOL_DATA } from '../constants';
+
 export const login = (userInfo) => {
   return async dispatch => {
 
@@ -8,11 +10,7 @@ export const login = (userInfo) => {
       Password : userInfo.password,
     };
     var authenticationDetails = new AuthenticationDetails(authenticationData);
-    var poolData = {
-      UserPoolId : 'us-west-2_pmyAi9eZM',
-      ClientId : 'ka1b6828t956d9t843v6curst',
-    };
-    var userPool = new CognitoUserPool(poolData);
+    var userPool = new CognitoUserPool(POOL_DATA);
     var userData = {
       Username : userInfo.userName,
       Pool: userPool
@@ -25,6 +23,10 @@ export const login = (userInfo) => {
           type: 'SET_TOKEN',
           token: result.idToken.jwtToken,
         });
+        await dispatch({
+          type: 'SET_LOGIN_STATUS',
+          loginStatus: 'user logged in',
+        })
       },
       onFailure: err => {
         alert(err);

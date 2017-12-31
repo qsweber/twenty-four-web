@@ -4,13 +4,10 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        firstName: '',
-        lastName: '',
-        userName: '',
-        password: '',
-        validationError: '',
-        success: '',
-        cognitoUser: '',
+      firstName: '',
+      lastName: '',
+      userName: '',
+      password: '',
     };
   }
 
@@ -26,7 +23,6 @@ class Register extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.props);
     this.props.onSubmit({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -77,8 +73,6 @@ class Register extends Component {
           <br />
           <input type="submit" value="Submit" />
         </form>
-        <p>{this.state.validationError}</p>
-        <p>{this.state.success}</p>
       </div>
     );
   }
