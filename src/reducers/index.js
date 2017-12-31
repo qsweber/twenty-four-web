@@ -1,27 +1,26 @@
 import { combineReducers } from 'redux'
 
 const twentyfour = (state = [], action) => {
-  console.log('inside this');
   switch (action.type) {
-    case 'SET_FOUR_NUMBERS':
-      return {
-        ...state,
-        fourNumbers: action.fourNumbers,
-      };
     case 'SET_OUTPUT':
       return {
         ...state,
         output: action.output,
       };
-    case 'REGISTER_USER':
+    case 'SET_REGISTRATION_RESULTS':
       return {
         ...state,
         registrationResults: action.result,
       }
-    case 'LOGIN_USER':
+    case 'SET_TOKEN':
       return {
         ...state,
         token: action.token,
+      }
+    case 'SET_LOGIN_STATUS':
+      return {
+        ...state,
+        loginStatus: action.loginStatus,
       }
     default:
       return state;

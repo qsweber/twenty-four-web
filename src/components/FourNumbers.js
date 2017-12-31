@@ -3,7 +3,7 @@ import PinInput from 'react-pin-input';
 
 class FourNumbers extends React.Component {
   onInputChange = (term) => {
-    this.props.onTermChange(term);
+    this.props.setFourNumbers(term, this.props.token);
   }
 
   render() {

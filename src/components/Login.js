@@ -10,6 +10,10 @@ export default class Login extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.checkUser();
+  }
+
   handleChange = (event) => {
     const target = event.target;
     const value = target.value;
@@ -53,7 +57,7 @@ export default class Login extends Component {
           <br />
           <input type="submit" value="Submit" />
         </form>
-        <p>{this.state.responseText}</p>
+        <p>{this.props.loginStatus}</p>
       </div>
     );
   }

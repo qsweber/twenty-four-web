@@ -17,9 +17,11 @@ class App extends React.Component {
         />
         <Login
           onSubmit={ this.props.actions.login }
+          checkUser={ this.props.actions.checkUser }
+          loginStatus={ this.props.loginStatus }
         />
         <FourNumbers
-          onTermChange={ this.props.actions.setFourNumbers }
+          setFourNumbers={ this.props.actions.setFourNumbers }
           token={ this.props.token }
         />
         <Output
@@ -34,6 +36,7 @@ function mapStateToProps(state) {
   return {
     token: state.twentyfour.token,
     output: state.twentyfour.output,
+    loginStatus: state.twentyfour.loginStatus,
   };
 }
 

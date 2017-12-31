@@ -27,7 +27,7 @@ export const registerUser = userInfo => {
     userPool.signUp(userInfo.userName, userInfo.password, attributeList, null, async (err, result) => {
       if (err) alert(err);
       await dispatch({
-        type: 'REGISTER_USER',
+        type: 'SET_REGISTRATION_RESULTS',
         result,
       });
     });

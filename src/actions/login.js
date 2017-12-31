@@ -22,7 +22,7 @@ export const login = (userInfo) => {
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: async result => {
         await dispatch({
-          type: 'LOGIN_USER',
+          type: 'SET_TOKEN',
           token: result.idToken.jwtToken,
         });
       },
