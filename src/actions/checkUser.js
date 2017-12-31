@@ -1,4 +1,4 @@
-import { AuthenticationDetails, CognitoUserPool, CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 
 import { POOL_DATA } from '../constants';
 

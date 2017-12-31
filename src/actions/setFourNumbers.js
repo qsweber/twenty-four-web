@@ -1,5 +1,3 @@
-import * as _ from 'lodash';
-import { CognitoUserPool } from 'amazon-cognito-identity-js';
 import { BACKEND_URL } from '../constants';
 
 export const setFourNumbers = (fourNumbers, token) => {
